@@ -2,7 +2,17 @@
 
 Deskora is a privacy-first browser toolkit for everyday office, document, media and IT work. It is built for GitHub + Vercel and keeps supported file processing on the user's device instead of uploading files to a Deskora storage server.
 
-## Deskora 1.2 productivity suite
+## Deskora 1.3
+
+### Featured video tools
+
+Deskora now promotes its three most practical video utilities directly on the landing page and in the tool library:
+
+- **Video Compressor** — browser-side FFmpeg compression with multiple quality presets, video preview and before/after file-size feedback.
+- **Video Trimmer** — built-in video preview, start/end inputs, range controls and local MP4 export.
+- **Video Playback Speed** — slow-motion and fast-motion presets from 0.25× through 4×, plus a custom speed option.
+
+The Universal File Drop and Ctrl/Cmd + K palette also prioritize these actions whenever a video is selected or the user types phrases such as `compress video`, `trim video`, or `video playback speed`.
 
 ### Product workflow features
 
@@ -12,7 +22,7 @@ Deskora is a privacy-first browser toolkit for everyday office, document, media 
 - Batch Processing Center for multi-file jobs and ZIP output
 - Template & Preset Center with shareable/bookmarkable tool URLs
 - Multi-file Workspace with desktop-style local tabs
-- Ctrl/Cmd + K command palette with task phrases such as `compress pdf 5mb` and `scan receipt`
+- Ctrl/Cmd + K command palette with natural task phrases
 - Dark mode
 - PWA install support, offline caching for visited same-origin assets and update notification
 - Share button on every tool page
@@ -48,24 +58,58 @@ Deskora is a privacy-first browser toolkit for everyday office, document, media 
 - Spreadsheet Compare
 - Excel / CSV Merge
 - Excel Splitter
+- CSV Column Tool
 - Inventory CSV Helper with per-row QR labels
 - Asset Label Generator for office equipment
 - Email List Cleaner
 - Text Compare
+- Text Toolkit
+- Text Pattern Extractor
+- Number Toolkit
+- Unit Converter
+- Date Calculator
+- Percentage / Discount / Margin Calculator
+- List Randomizer / Team Splitter
 - QR and Barcode generation/scanning
+- Wi-Fi QR Generator
 - VAT Calculator
 - Number to Words
 - Workdays Calculator
 - Live Meeting Transcriber where supported by the browser
 
-### Media, image and file tools
+### Image and printing tools
 
 - Image Convert / Compress / Resize / Batch ZIP
+- Image Crop & Rotate
+- Document Photo Enhancer
 - Image metadata cleanup
-- Video Compress / Speed / Trim / Video to MP3
+- Image ↔ Base64
+- Photo Sheet Maker
+- Poster Splitter to multi-page A4 PDF
+- DPI / paper-size / ID-photo / date-stamp printing utilities
+
+### Developer and IT utilities
+
+- JSON tools
+- JSON ↔ CSV Converter
+- XML Formatter / Validator
+- Regex Tester
+- JWT Decoder
+- URL Encoder / Decoder / Parser
+- Timestamp Converter
+- UUID Generator
+- MAC Address Formatter
+- File Size Converter
+- Color Converter
+- IPv4/Subnet Calculator
+- Password Generator
+
+### Other media and file tools
+
 - Social video resize
 - Video frame extraction
 - Video to GIF
+- Video to MP3
 - Audio Studio
 - Watermark Center
 - ZIP Create / Extract
@@ -73,9 +117,6 @@ Deskora is a privacy-first browser toolkit for everyday office, document, media 
 - Bulk File Organizer
 - Exact Duplicate File Finder
 - File Hash and File Compare
-- IPv4/Subnet Calculator and Password Generator
-- JSON and Base64 tools
-- DPI / paper-size / ID-photo / date-stamp printing utilities
 
 ## Privacy architecture
 
@@ -114,7 +155,7 @@ npm run preview
 5. No environment variables are required for the browser-only toolset.
 6. Deploy.
 
-`vercel.json` contains the SPA rewrite required for direct routes such as `/tools/pdf-editor-pro` and `/tools/pipeline-center`.
+`vercel.json` contains the SPA rewrite required for direct routes such as `/tools/video-compressor`, `/tools/video-trim`, `/tools/video-speed`, `/tools/pdf-editor-pro` and `/tools/pipeline-center`.
 
 ## Stack
 
