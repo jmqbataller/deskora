@@ -2,11 +2,13 @@
 
 Deskora is a privacy-first browser toolkit for everyday office, document, media and IT work. It is built for GitHub + Vercel and keeps supported file processing on the user's device instead of uploading files to a Deskora storage server.
 
-## Deskora 1.3
+## Deskora 1.5
+
+Deskora now uses a **React + TypeScript + Vite** source stack. The existing PDF, OCR, image, video, audio, office, file, IT, PWA and workspace features are preserved while the application source has moved from `.js` / `.jsx` to `.ts` / `.tsx`.
 
 ### Featured video tools
 
-Deskora now promotes its three most practical video utilities directly on the landing page and in the tool library:
+Deskora promotes its three most practical video utilities directly on the landing page and in the tool library:
 
 - **Video Compressor** — browser-side FFmpeg compression with multiple quality presets, video preview and before/after file-size feedback.
 - **Video Trimmer** — built-in video preview, start/end inputs, range controls and local MP4 export.
@@ -103,6 +105,7 @@ The Universal File Drop and Ctrl/Cmd + K palette also prioritize these actions w
 - Color Converter
 - IPv4/Subnet Calculator
 - Password Generator
+- Expanded IT & Security utilities for DHCP, DNS, VLAN, Windows support, printers, SMB, RDP, Wi-Fi, storage, power and helpdesk work
 
 ### Other media and file tools
 
@@ -159,7 +162,7 @@ npm run preview
 
 ## Stack
 
-- React + Vite
+- React + TypeScript + Vite
 - PDF.js + pdf-lib
 - Tesseract.js
 - FFmpeg.wasm
