@@ -1,11 +1,12 @@
 {
   "name": "deskora",
   "private": true,
-  "version": "1.5.1",
+  "version": "1.5.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "qa": "node scripts/qa-catalog.mjs",
     "preview": "vite preview",
     "postinstall": "node scripts/copy-ffmpeg.mjs"
   },

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { tools } from '../data-tools'
+import { tools } from '../tool-catalog'
 
 const presets=[
   {name:'Scan & Sign',steps:['camera-scanner','ocr-text','edit-pdf','pdf-compressor']},

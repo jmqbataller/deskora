@@ -30,7 +30,7 @@ export function ExcelMerge(){
 
 export function ExcelSplitter(){
  const[file,setFile]=useState(null),[rows,setRows]=useState([]),[column,setColumn]=useState(''),[msg,setMsg]=useState(''),[busy,setBusy]=useState(false)
- async function load(f){setFile(f);const wb=await readBook(f),r=rowsOf(wb);setRows(r);setColumn(Object.keys(r[0]||{})[0]||'')}
+ async function load(f){setFile(f);setBusy(true);try{const wb=await readBook(f),r=rowsOf(wb);setRows(r);setColumn(Object.keys(r[0]||{})[0]||'');setMsg(`${r.length} rows loaded.`)}catch(e){setRows([]);setMsg(e instanceof Error?e.message:'Could not read this spreadsheet.')}finally{setBusy(false)}}
  async function run(){setBusy(true);try{const groups={};rows.forEach(r=>{const k=String(r[column]||'Blank').trim()||'Blank';(groups[k]??=[]).push(r)});const zip=new JSZip();for(const [k,r] of Object.entries(groups)){const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(r),'Data');zip.file(`${safeBaseName(k)}.xlsx`,XLSX.write(wb,{bookType:'xlsx',type:'array'}))}downloadBlob(await zip.generateAsync({type:'blob'}),`${safeBaseName(file.name)}-split.zip`);setMsg(`Split into ${Object.keys(groups).length} files.`)}catch(e){setMsg(e.message)}finally{setBusy(false)}}
  return <div className="stack"><FileDrop accept=".xlsx,.xls,.csv" onFiles={f=>load(f[0])}/>{rows.length>0&&<label>Split by column<select value={column} onChange={e=>setColumn(e.target.value)}>{Object.keys(rows[0]).map(k=><option key={k}>{k}</option>)}</select></label>}<button className="primary" disabled={!rows.length||busy} onClick={run}>Split to ZIP</button><Status>{msg}</Status></div>
 }

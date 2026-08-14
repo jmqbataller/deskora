@@ -5,7 +5,7 @@ export const itToolsV2 = [
   { id:'dhcp-planner', name:'DHCP Scope Planner', desc:'Calculate DHCP pools, exclusions, reservations and scope capacity.', category:'it', icon:Network, badge:'IT' },
   { id:'vlan-planner', name:'VLAN Planner', desc:'Document VLAN IDs, names, subnets, gateways and purpose.', category:'it', icon:Network, badge:'New' },
   { id:'wildcard-mask', name:'Wildcard Mask Calculator', desc:'Convert CIDR prefixes into subnet and wildcard masks.', category:'it', icon:Calculator, badge:'New' },
-  { id:'ipv4-binary', name:'IPv4 Binary Converter', desc:'Convert dotted IPv4 addresses to binary and back.', category:'it', icon:Binary },
+  { id:'ipv4-binary', name:'IPv4 Binary Converter', desc:'Convert dotted IPv4 addresses to binary notation.', category:'it', icon:Binary },
   { id:'reverse-dns-builder', name:'Reverse DNS PTR Builder', desc:'Build the in-addr.arpa reverse lookup name for an IPv4 address.', category:'it', icon:Network },
   { id:'dns-record-builder', name:'DNS Record Builder', desc:'Generate A, CNAME, MX, TXT, SRV and PTR record templates.', category:'it', icon:Network, badge:'New' },
   { id:'dns-command-builder', name:'DNS Troubleshooting Commands', desc:'Generate nslookup, ipconfig and PowerShell DNS checks.', category:'it', icon:Code2, badge:'New' },
@@ -48,5 +48,5 @@ export const itToolsV2 = [
   { id:'ticket-template', name:'Helpdesk Ticket Template', desc:'Generate a structured IT incident/support ticket for handoff.', category:'it', icon:FileStack, badge:'New' },
   { id:'handover-checklist', name:'IT Handover Checklist', desc:'Build a practical turnover checklist for an incoming IT staff member.', category:'it', icon:ListChecks, badge:'New' },
   { id:'password-policy-checker', name:'Password Policy Checker', desc:'Check password length and character diversity locally.', category:'it', icon:KeyRound },
-  { id:'random-token', name:'IT Token Generator', desc:'Generate UUIDs, random hex strings, PINs and temporary tokens locally.', category:'it', icon:KeyRound },
+  { id:'random-token', name:'IT Token Generator', desc:'Generate UUIDs and cryptographically random hex tokens locally.', category:'it', icon:KeyRound },
 ]

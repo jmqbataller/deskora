@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom'
 import { ArrowRight, Check, ChevronRight, Files, Github, LockKeyhole, Menu, Moon, Search, ShieldCheck, Sparkles, Sun, X, Zap } from 'lucide-react'
-import { categories, tools as baseTools } from './data-tools'
+import { categories, tools, toolMap, featuredVideoIds } from './tool-catalog'
 import { productivityTools } from './productivity-tools'
 import { featurePackTools } from './feature-pack-tools'
 import ToolShell from './components/ToolShell'
@@ -18,18 +18,11 @@ import { WorkflowBuilder } from './tools/WorkspaceTools'
 import { SmartDashboard, FileAnalyzer, TargetSizeCompressor, PipelineCenter, BatchProcessingCenter, OcrWorkspace, ExpenseWorkspace, AssetLabelGenerator, InventoryHelper, TemplateCenter, BatchPdfOperations, MultiFileWorkspace } from './tools/ProductivitySuite'
 import { PdfEditorPro } from './tools/PdfPro'
 import { ImageCropRotate, DocumentEnhancer, PhotoSheet, PosterSplitter, TextToolkit, JsonCsv, XmlTools, RegexTester, JwtDecoder, UrlTools, TimestampConverter, UuidGenerator, ImageBase64, MacFormatter, FileSizeConverter, UnitConverter, DateCalculator, PercentageCalculator, ListRandomizer, ColorConverter, CsvColumnTool, WifiQr, NumberToolkit, TextExtractor } from './tools/FeaturePack'
+import { itToolsV2 } from './it-tools-pack-v2'
+import { ITToolEngine } from './tools/ITToolsV2'
 
-const featuredOverrides={
-  'video-compressor':{name:'Video Compressor',desc:'Make video files smaller directly in your browser with quality and resolution controls.',badge:'Featured'},
-  'video-trim':{name:'Video Trimmer',desc:'Cut the exact start and end of a video with a built-in playback preview.',badge:'Featured'},
-  'video-speed':{name:'Video Playback Speed',desc:'Create slow-motion or fast-motion video with presets from 0.25× to 4×.',badge:'Featured'},
-}
-const enhancedBaseTools=baseTools.map(t=>featuredOverrides[t.id]?{...t,...featuredOverrides[t.id]}:t)
-const tools=[...enhancedBaseTools,...productivityTools,...featurePackTools]
-const toolMap=Object.fromEntries(tools.map(t=>[t.id,t]))
-const featuredVideoIds=['video-compressor','video-trim','video-speed']
 
-const toolComponents={
+const toolComponents: Record<string, any>={
   'pdf-to-image':PdfToImage,'edit-pdf':PdfEditor,'pdf-form-filler':PdfEditor,'pdf-editor-pro':PdfEditorPro,'pdf-organizer':PdfOrganizer,'pdf-compressor':PdfCompressor,'pdf-redactor':PdfRedactor,'pdf-to-word':PdfToWordText,'pdf-metadata':PdfMetadataCleaner,'pdf-password':PdfPasswordTool,'searchable-pdf':SearchablePdf,'images-to-pdf':ImagesToPdf,'merge-pdf':MergePdf,'split-pdf':SplitPdf,'rotate-pdf':RotatePdf,
   'convert-image':ConvertImage,'compress-image':CompressImage,'resize-image':ResizeImage,'batch-images':BatchImages,'image-metadata':ImageMetadataCleaner,'signature-maker':SignatureMaker,'watermark-center':WatermarkCenter,'image-crop-rotate':ImageCropRotate,'document-enhancer':DocumentEnhancer,
   'video-compressor':VideoCompressor,'video-speed':VideoSpeed,'video-trim':VideoTrim,'video-audio':VideoAudio,'video-social-resize':VideoSocialResize,'video-frame':VideoFrameExtractor,'gif-maker':GifMaker,'audio-studio':AudioStudio,
@@ -39,6 +32,7 @@ const toolComponents={
   'file-analyzer':FileAnalyzer,'pipeline-center':PipelineCenter,'batch-center':BatchProcessingCenter,'target-compression':TargetSizeCompressor,'ocr-workspace':OcrWorkspace,'expense-workspace':ExpenseWorkspace,'asset-labels':AssetLabelGenerator,'inventory-helper':InventoryHelper,'template-center':TemplateCenter,'batch-pdf':BatchPdfOperations,'multi-file-workspace':MultiFileWorkspace,'smart-dashboard':SmartDashboard,
   'photo-sheet':PhotoSheet,'poster-splitter':PosterSplitter,'text-toolkit':TextToolkit,'json-csv':JsonCsv,'xml-tools':XmlTools,'regex-tester':RegexTester,'jwt-decoder':JwtDecoder,'url-tools':UrlTools,'timestamp-converter':TimestampConverter,'uuid-generator':UuidGenerator,'image-base64':ImageBase64,'mac-formatter':MacFormatter,'file-size-converter':FileSizeConverter,'unit-converter':UnitConverter,'date-calculator':DateCalculator,'percentage-calculator':PercentageCalculator,'list-randomizer':ListRandomizer,'color-converter':ColorConverter,'csv-column-tool':CsvColumnTool,'wifi-qr':WifiQr,'number-tools':NumberToolkit,'text-extractor':TextExtractor,
 }
+itToolsV2.forEach(t=>{toolComponents[t.id]=ITToolEngine})
 
 function Brand(){return <Link className="brand" to="/"><span className="brand-mark"><Files size={19}/></span><span>Deskora</span></Link>}
 

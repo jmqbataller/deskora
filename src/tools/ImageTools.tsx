@@ -23,7 +23,7 @@ export function ConvertImage(){
 
 export function CompressImage(){
   const [file,setFile]=useState(null),[quality,setQuality]=useState(.75),[msg,setMsg]=useState(''),[busy,setBusy]=useState(false)
-  async function run(){try{setBusy(true);const type=file.type==='image/png'?'image/webp':(file.type||'image/jpeg');const blob=await renderImage(file,{type,quality:Number(quality)});const ext=type==='image/webp'?'webp':'jpg';downloadBlob(blob,`${safeBaseName(file.name)}-compressed.${ext}`);const saved=Math.max(0,Math.round((1-blob.size/file.size)*100));setMsg(`Original ${formatBytes(file.size)} → ${formatBytes(blob.size)} (${saved}% smaller).`)}catch(e){setMsg(e.message)}finally{setBusy(false)}}
+  async function run(){try{setBusy(true);const type=file.type==='image/png'||file.type==='image/webp'?'image/webp':'image/jpeg';const blob=await renderImage(file,{type,quality:Number(quality)});const ext=type==='image/webp'?'webp':'jpg';downloadBlob(blob,`${safeBaseName(file.name)}-compressed.${ext}`);const saved=Math.max(0,Math.round((1-blob.size/file.size)*100));setMsg(`Original ${formatBytes(file.size)} → ${formatBytes(blob.size)} (${saved}% smaller).`)}catch(e){setMsg(e.message)}finally{setBusy(false)}}
   return <div className="stack"><FileDrop accept="image/*" onFiles={f=>setFile(f[0])}/><Picked file={file}/><label>Compression quality<input type="range" min="0.2" max="0.95" step="0.05" value={quality} onChange={e=>setQuality(e.target.value)}/><small>{Math.round(quality*100)}%</small></label><button className="primary" disabled={!file||busy} onClick={run}>{busy?'Compressing…':'Compress image'}</button><Status>{msg}</Status></div>
 }
 
