@@ -19,7 +19,7 @@ const nonIt = all.filter(id => !it.includes(id))
 const missingComponents = nonIt.filter(id => !components.has(id))
 
 const itEngine = read('src/tools/ITToolsV2.tsx')
-const itCases = new Set([...itEngine.matchAll(/case\s*['"]([^'"]+)['"]/g)].map(m => m[1]))
+const itCases = new Set([...itEngine.matchAll(/\bcase\s*['"]([^'"]+)['"]\s*:/g)].map(m => m[1]))
 const missingItCases = it.filter(id => !itCases.has(id))
 const unknownItCases = [...itCases].filter(id => !it.includes(id))
 
