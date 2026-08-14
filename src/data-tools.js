@@ -3,6 +3,7 @@ import {
   Archive, Network, Code2, Printer, Hash, FileStack,
   Gauge, Crop, RotateCw, Merge, Scissors, FileImage, FileAudio, Sparkles,
   Table2, ListChecks, Binary, KeyRound, Calculator, Barcode, PackageOpen,
+  Camera, FilePenLine,
 } from 'lucide-react'
 
 export const categories = [
@@ -18,6 +19,7 @@ export const categories = [
 
 export const tools = [
   { id:'pdf-to-image', name:'PDF to Images', desc:'Export PDF pages as PNG, JPG or WebP.', category:'pdf', icon:FileImage, badge:'Popular' },
+  { id:'edit-pdf', name:'Edit PDF', desc:'Add text, signatures and images visually, then export a new PDF.', category:'pdf', icon:FilePenLine, badge:'New' },
   { id:'images-to-pdf', name:'Images to PDF', desc:'Combine browser-supported images into one PDF.', category:'pdf', icon:Images },
   { id:'merge-pdf', name:'Merge PDF', desc:'Combine multiple PDF files in your chosen order.', category:'pdf', icon:Merge },
   { id:'split-pdf', name:'Split PDF', desc:'Extract page ranges into a new PDF.', category:'pdf', icon:Scissors },
@@ -33,6 +35,7 @@ export const tools = [
   { id:'video-trim', name:'Trim Video', desc:'Cut a video by start and end time.', category:'video', icon:Scissors, badge:'FFmpeg' },
   { id:'video-audio', name:'Video to MP3', desc:'Extract audio from a video file.', category:'video', icon:FileAudio, badge:'FFmpeg' },
 
+  { id:'camera-scanner', name:'Camera Scanner', desc:'Capture paper documents, clean them up and export a scan-ready PDF.', category:'office', icon:Camera, badge:'New' },
   { id:'csv-cleaner', name:'CSV Cleaner', desc:'Remove blank and duplicate rows from CSV or Excel data.', category:'office', icon:Table2 },
   { id:'text-compare', name:'Text Compare', desc:'Highlight additions and removals between two texts.', category:'office', icon:Type },
   { id:'email-cleaner', name:'Email List Cleaner', desc:'Normalize, validate and deduplicate email lists.', category:'office', icon:ListChecks },
