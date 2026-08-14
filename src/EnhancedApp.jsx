@@ -1,0 +1,15 @@
+import { Link, useLocation } from 'react-router-dom'
+import { ArrowLeft, ChevronRight, Files, ShieldCheck, Wrench } from 'lucide-react'
+import App from './App'
+import { itToolsPack } from './it-tools-pack'
+import { itToolComponents } from './tools/ITToolsPack'
+
+function DeveloperCredit(){return <div className="developer-credit">Developed by <a href="https://jmqbataller.vercel.app/" target="_blank" rel="noreferrer">John Mark Bataller</a></div>}
+
+function ItBrand(){return <Link className="it-brand" to="/"><img src="/deskora-logo.svg" alt="Deskora"/><span>Deskora</span></Link>}
+
+function ItHub(){return <main className="it-hub-page"><header className="it-hub-header"><div className="shell it-hub-nav"><ItBrand/><div className="button-row compact"><Link className="secondary" to="/">Home</Link><Link className="secondary" to="/tools">All Tools</Link></div></div></header><section className="shell it-hub-hero"><span className="eyebrow">Deskora IT Hub</span><h1>Practical IT tools for office support and LAN troubleshooting.</h1><p>Plan networks, generate safe Windows repair scripts, build commands, troubleshoot file sharing, create office Wi-Fi QR codes, and standardize workstation setup.</p><div className="trust-row"><span><ShieldCheck size={15}/> Browser-first</span><span><ShieldCheck size={15}/> No account</span><span><ShieldCheck size={15}/> Scripts are generated locally</span></div></section><section className="shell section"><div className="it-tools-grid">{itToolsPack.map(t=>{const Icon=t.icon;return <Link className="it-tool-card" key={t.id} to={`/it-tools/${t.id}`}><span className="tool-icon"><Icon size={21}/></span><div><div className="it-card-title"><h3>{t.name}</h3>{t.badge&&<span className="badge">{t.badge}</span>}</div><p>{t.desc}</p></div><ChevronRight size={18}/></Link>})}</div></section><DeveloperCredit/></main>}
+
+function ItToolPage({id}){const tool=itToolsPack.find(t=>t.id===id),Comp=itToolComponents[id];if(!tool||!Comp)return <ItHub/>;const Icon=tool.icon;return <main className="it-hub-page"><header className="it-hub-header"><div className="shell it-hub-nav"><ItBrand/><div className="button-row compact"><Link className="secondary" to="/it-tools">IT Hub</Link><Link className="secondary" to="/tools">All Tools</Link></div></div></header><section className="shell tool-page"><Link className="back-link" to="/it-tools"><ArrowLeft size={15}/> Back to IT Hub</Link><div className="tool-header"><span className="tool-icon large"><Icon size={28}/></span><div><span className="eyebrow">IT & Security</span><h1>{tool.name}</h1><p>{tool.desc}</p></div></div><div className="privacy-note"><ShieldCheck size={15}/> Runs in your browser. Review generated scripts before executing them.</div><div className="tool-workspace"><Comp/></div></section><DeveloperCredit/></main>}
+
+export default function EnhancedApp(){const {pathname}=useLocation();if(pathname==='/it-tools')return <ItHub/>;if(pathname.startsWith('/it-tools/'))return <ItToolPage id={decodeURIComponent(pathname.split('/')[2]||'')}/>;return <><App/><Link className="it-tools-launcher" to="/it-tools"><Wrench size={16}/> IT Tools</Link><DeveloperCredit/></>}
