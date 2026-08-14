@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import App from './App'
+import EnhancedApp from './EnhancedApp'
 import './styles.css'
 import './expansion.css'
 import './tools/pdfpro.css'
@@ -9,7 +9,7 @@ import './tools/pdfpro.css'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <EnhancedApp />
     </BrowserRouter>
   </React.StrictMode>,
 )
