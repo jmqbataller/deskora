@@ -1,6 +1,7 @@
 import { Image, Crop, Printer, Type, Calculator, Network, Code2, Binary, FileText, Sparkles, Table2, ListChecks, Hash, QrCode, KeyRound, FileSpreadsheet, Clock, Palette } from 'lucide-react'
+import { itToolsV2 } from './it-tools-pack-v2'
 
-export const featurePackTools = [
+const utilityFeatureTools = [
   { id:'image-crop-rotate', name:'Image Crop & Rotate', desc:'Crop by coordinates or rotate an image and export PNG or JPG.', category:'image', icon:Crop, badge:'New' },
   { id:'document-enhancer', name:'Document Photo Enhancer', desc:'Clean photographed documents with grayscale, contrast and black-and-white scan filters.', category:'image', icon:Sparkles, badge:'Office' },
   { id:'photo-sheet', name:'Photo Sheet Maker', desc:'Arrange one photo into a printable A4 contact sheet with configurable copies.', category:'printing', icon:Printer },
@@ -26,3 +27,7 @@ export const featurePackTools = [
   { id:'number-tools', name:'Number Toolkit', desc:'Average, sum, min, max, ratio and sorted statistics from pasted numbers.', category:'office', icon:Calculator },
   { id:'text-extractor', name:'Text Pattern Extractor', desc:'Extract emails, URLs, phone-like numbers or numeric values from pasted text.', category:'office', icon:FileText },
 ]
+
+// IT & Security is part of the same /tools catalog as every other Deskora category.
+// Keep utilityFeatureTools first so existing homepage feature ordering remains stable.
+export const featurePackTools = [...utilityFeatureTools, ...itToolsV2]
