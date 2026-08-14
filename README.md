@@ -1,122 +1,126 @@
 # Deskora
 
-Deskora is a privacy-first browser toolkit for everyday office, document, media and IT work. It is designed for GitHub + Vercel and performs supported file processing on the user's device instead of uploading files to a Deskora storage server.
+Deskora is a privacy-first browser toolkit for everyday office, document, media and IT work. It is built for GitHub + Vercel and keeps supported file processing on the user's device instead of uploading files to a Deskora storage server.
 
-## Deskora 1.1 toolset
+## Deskora 1.2 productivity suite
 
-### PDF & documents
-- PDF to PNG/JPG/WebP
-- Visual Edit PDF / form-filling workflow with text and signature/image overlays
-- Images to PDF, Merge, Split, Rotate
-- PDF Page Organizer: reorder, duplicate, rotate and delete pages
-- PDF Compressor with quality/resolution presets
-- Permanent PDF Redaction by flattening redacted pages
-- PDF to editable text / Word-compatible `.doc`
-- PDF metadata cleaner
-- Scan photos to searchable PDF with OCR text layer
-- Camera Scanner: camera/upload, auto crop, manual crop, deskew, filters, multi-page PDF
+### Product workflow features
 
-### OCR & office scanning
-- Image / scanned-PDF OCR to editable text
-- English and Filipino OCR language choices
-- Receipt Scanner with likely amount/total line extraction
-- Business Card Scanner with email/phone/URL extraction
-- QR and barcode scanning where the browser supports `BarcodeDetector`
-- QR generator and Code 128 barcode generator
+- Smart Dashboard with favorites, custom shortcuts, recent tools and local processing history
+- Universal File Analyzer with contextual actions for PDF, image, video/audio, spreadsheets, ZIPs and generic files
+- Tool Chaining 2.0 for multiple image or PDF operations in one pass
+- Batch Processing Center for multi-file jobs and ZIP output
+- Template & Preset Center with shareable/bookmarkable tool URLs
+- Multi-file Workspace with desktop-style local tabs
+- Ctrl/Cmd + K command palette with task phrases such as `compress pdf 5mb` and `scan receipt`
+- Dark mode
+- PWA install support, offline caching for visited same-origin assets and update notification
+- Share button on every tool page
 
-### Images & printing
-- Convert, compress, resize and batch image ZIP
-- Image metadata / EXIF-GPS cleaner by re-encoding
-- Signature Maker with transparent PNG output
-- ID Picture A4 sheet for 1×1, 2×2 and passport sizing
-- Date Stamp Generator
-- A3/A4/A5, Letter, Legal, **Long Bond 8.5×13**, and Folio paper guide
-- DPI calculator
+### PDF and document tools
 
-### Video & audio
-- Video compression, trimming, speed, Video → MP3
-- Social video resize: 9:16, 4:5, 1:1 and 16:9
-- Video frame extractor
-- Video → GIF
-- Watermark images, PDFs and videos
-- Audio Studio: MP3 conversion, compression, trim, merge, speed, volume, normalization and silence removal
+- PDF to Images
+- Images to PDF
+- Edit PDF
+- PDF Editor Pro: text, checks, highlights, rectangles and signature/image placement
+- PDF Form Filler
+- PDF Page Organizer
+- PDF Compressor
+- Target Size Compression for PDF/image files
+- Permanent PDF Redaction
+- PDF to editable text / Word-compatible output
+- PDF metadata cleanup
+- Scan to Searchable PDF
+- Merge, Split and Rotate PDF
+- Batch PDF watermark/rotate operations
+- Camera Scanner
+- OCR / Image to Text
+- OCR Correction Workspace
+- Signature Maker
 
-### Spreadsheet & office data
-- CSV / Excel cleaner
-- Spreadsheet duplicate finder
-- Spreadsheet cell-by-cell compare with diff CSV
-- Excel / CSV merge
-- Excel splitter by selected column
-- Text compare and email-list cleaner
-- Number-to-words for Philippine peso documents
-- VAT calculator
-- Workdays calculator with optional custom holiday dates
-- Live meeting transcription where browser speech recognition is available
+### Office and data tools
 
-### File, IT & developer tools
-- ZIP create/extract
-- SHA-256 hash and byte-for-byte file compare
-- Smart batch rename into ZIP
-- Bulk file organizer into categorized ZIP folders
-- Exact duplicate file finder using SHA-256
-- IPv4/subnet calculator
-- Password generator
-- JSON format/minify/validate
-- Base64 encode/decode
+- Receipt Scanner
+- Receipt Expense Workspace with editable fields and XLSX export
+- Business Card Scanner
+- CSV/Excel Cleaner
+- Spreadsheet Duplicate Finder
+- Spreadsheet Compare
+- Excel / CSV Merge
+- Excel Splitter
+- Inventory CSV Helper with per-row QR labels
+- Asset Label Generator for office equipment
+- Email List Cleaner
+- Text Compare
+- QR and Barcode generation/scanning
+- VAT Calculator
+- Number to Words
+- Workdays Calculator
+- Live Meeting Transcriber where supported by the browser
 
-## Workspace features
-- Favorites stored in browser local storage
-- Recent tools stored on the device
-- `Ctrl/Cmd + K` command palette
-- Universal file-drop action suggestions
-- Guided Tool Chain Builder with saved local workflows
-- Installable PWA shell and service-worker caching for visited same-origin assets
+### Media, image and file tools
+
+- Image Convert / Compress / Resize / Batch ZIP
+- Image metadata cleanup
+- Video Compress / Speed / Trim / Video to MP3
+- Social video resize
+- Video frame extraction
+- Video to GIF
+- Audio Studio
+- Watermark Center
+- ZIP Create / Extract
+- Smart Batch Rename
+- Bulk File Organizer
+- Exact Duplicate File Finder
+- File Hash and File Compare
+- IPv4/Subnet Calculator and Password Generator
+- JSON and Base64 tools
+- DPI / paper-size / ID-photo / date-stamp printing utilities
 
 ## Privacy architecture
 
-Deskora has no account system, database or Deskora file-storage backend in this release. PDF, image, spreadsheet, archive and utility processing is browser-side. Video/audio uses FFmpeg.wasm served from the same Vercel origin. OCR uses Tesseract.js in the browser; its runtime/language assets may be fetched when first needed.
+Deskora is browser-first. Supported tools process data in the browser. Favorites, recent tools, presets, history and shortcuts use local browser storage. There is no Deskora account database or Deskora file-storage backend in this release.
+
+OCR uses Tesseract.js. Video and audio processing use FFmpeg.wasm. PDF work uses PDF.js and pdf-lib.
 
 ## Important limitations
 
-- **Edit PDF** adds new content layers; it does not rewrite arbitrary original PDF text objects.
-- **PDF compression** currently uses raster compression, so selectable text in the compressed copy is flattened.
-- **Permanent redaction** intentionally rasterizes pages so covered underlying text is not retained as selectable PDF content.
-- **Standard PDF password encryption/unlocking is not enabled yet.** The current `pdf-lib` dependency does not provide standard encrypted-PDF editing/encryption. Deskora does not create a fake proprietary wrapper and call it a protected PDF.
-- Browser APIs such as `BarcodeDetector` and Speech Recognition vary by browser/device.
-- Very large videos/audio files can be memory- and CPU-intensive because FFmpeg runs on the user's device.
+- Browser-side video, OCR and large PDF jobs depend on device memory/CPU and may be slower than native desktop software.
+- Target-size compression aims near the requested size; exact byte size cannot be guaranteed for every file.
+- PDF raster compression and permanent redaction flatten pages, which intentionally removes/loses the original selectable text layer.
+- Standard encrypted PDF creation is not implemented because the current pdf-lib stack does not provide standard password-encryption support.
+- Tool Chaining 2.0 currently runs image and PDF pipelines in one pass. Video chains stay as individual jobs to avoid exhausting browser memory on typical office devices.
 
-## Development
+## Local development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Production verification:
+Production validation:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-A GitHub Actions workflow also runs `npm install` and `npm run build` on the feature branch and `main`.
-
 ## Deploy to Vercel
 
 1. Import `jmqbataller/deskora` into Vercel.
-2. Framework preset: **Vite**.
+2. Framework preset: Vite.
 3. Build command: `npm run build`.
 4. Output directory: `dist`.
-5. No app environment variables are required for the current browser-first toolset.
+5. No environment variables are required for the browser-only toolset.
 6. Deploy.
 
-`vercel.json` provides the SPA rewrite for direct `/tools/...` routes.
+`vercel.json` contains the SPA rewrite required for direct routes such as `/tools/pdf-editor-pro` and `/tools/pipeline-center`.
 
 ## Stack
 
 - React + Vite
-- pdf-lib + PDF.js
-- Tesseract.js OCR
+- PDF.js + pdf-lib
+- Tesseract.js
 - FFmpeg.wasm
 - SheetJS
 - JSZip
