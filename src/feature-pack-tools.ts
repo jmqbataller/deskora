@@ -22,7 +22,7 @@ const utilityFeatureTools = [
   { id:'percentage-calculator', name:'Percentage & Margin Calculator', desc:'Calculate percentages, discounts, markup, margin and percent change.', category:'office', icon:Calculator },
   { id:'list-randomizer', name:'List Randomizer', desc:'Shuffle names, pick random entries or split a list into teams.', category:'office', icon:ListChecks },
   { id:'color-converter', name:'Color Converter', desc:'Convert HEX, RGB and HSL values and preview the result.', category:'developer', icon:Palette },
-  { id:'csv-column-tool', name:'CSV Column Tool', desc:'Select, rename or remove columns from CSV/Excel data and export a cleaned workbook.', category:'office', icon:FileSpreadsheet },
+  { id:'csv-column-tool', name:'CSV Column Tool', desc:'Select or remove columns from CSV/Excel data and export a cleaned workbook.', category:'office', icon:FileSpreadsheet },
   { id:'wifi-qr', name:'Wi-Fi QR Generator', desc:'Create a QR code that can join a Wi-Fi network from SSID and password.', category:'office', icon:QrCode },
   { id:'number-tools', name:'Number Toolkit', desc:'Average, sum, min, max, ratio and sorted statistics from pasted numbers.', category:'office', icon:Calculator },
   { id:'text-extractor', name:'Text Pattern Extractor', desc:'Extract emails, URLs, phone-like numbers or numeric values from pasted text.', category:'office', icon:FileText },

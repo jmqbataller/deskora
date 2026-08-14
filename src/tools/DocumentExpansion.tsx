@@ -52,7 +52,7 @@ export function PdfToWordText(){
 
 export function PdfMetadataCleaner(){
  const[file,setFile]=useState(null),[busy,setBusy]=useState(false),[msg,setMsg]=useState('')
- async function run(){setBusy(true);try{const pdf=await PDFDocument.load(await file.arrayBuffer(),{updateMetadata:false});pdf.setTitle('');pdf.setAuthor('');pdf.setSubject('');pdf.setKeywords([]);pdf.setCreator('Deskora');pdf.setProducer('Deskora');downloadBlob(new Blob([await pdf.save()],{type:'application/pdf'}),`${safeBaseName(file.name)}-metadata-clean.pdf`);setMsg('Common PDF metadata fields were cleared.')}catch(e){setMsg(e.message)}finally{setBusy(false)}}
+ async function run(){setBusy(true);try{const pdf=await PDFDocument.load(await file.arrayBuffer(),{updateMetadata:false});pdf.setTitle('');pdf.setAuthor('');pdf.setSubject('');pdf.setKeywords([]);pdf.setCreator('');pdf.setProducer('');downloadBlob(new Blob([await pdf.save()],{type:'application/pdf'}),`${safeBaseName(file.name)}-metadata-clean.pdf`);setMsg('Common PDF metadata fields were cleared.')}catch(e){setMsg(e.message)}finally{setBusy(false)}}
  return <div className="stack"><FileDrop accept="application/pdf" onFiles={f=>setFile(f[0])}/><button className="primary" disabled={!file||busy} onClick={run}>{busy?'Cleaning…':'Remove PDF metadata'}</button><Status>{msg}</Status></div>
 }
 
