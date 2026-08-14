@@ -1,0 +1,13 @@
+{
+  "name": "Deskora — Office & File Toolkit",
+  "short_name": "Deskora",
+  "description": "Privacy-first browser tools for PDF, scanning, OCR, images, video, spreadsheets, files, IT and printing.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6f8fb",
+  "theme_color": "#08111f",
+  "icons": [
+    {"src":"/deskora-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
