@@ -65,7 +65,7 @@ export const tools = [
   { id:'email-cleaner', name:'Email List Cleaner', desc:'Normalize, validate and deduplicate email lists.', category:'office', icon:ListChecks },
   { id:'qr-generator', name:'QR Generator', desc:'Generate QR codes for URLs, text or Wi-Fi details.', category:'office', icon:QrCode },
   { id:'barcode-generator', name:'Barcode Generator', desc:'Generate printable Code 128 barcodes.', category:'office', icon:Barcode },
-  { id:'code-scanner', name:'QR & Barcode Scanner', desc:'Read QR and common barcode formats from a photo or phone camera.', category:'office', icon:Barcode },
+  { id:'code-scanner', name:'QR & Barcode Scanner', desc:'Scan from images, live camera or PDA handheld scanners, then copy all results.', category:'office', icon:Barcode, badge:'Upgraded' },
   { id:'meeting-transcriber', name:'Live Meeting Transcriber', desc:'Create a live microphone transcript where browser speech recognition is available.', category:'office', icon:Type },
   { id:'number-to-words', name:'Number to Words', desc:'Convert amounts into Philippine-peso wording for office documents.', category:'office', icon:Calculator },
   { id:'vat-calculator', name:'VAT Calculator', desc:'Calculate net, VAT and total for inclusive or exclusive pricing.', category:'office', icon:Calculator },
