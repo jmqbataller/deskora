@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - agent/deskora-all-features
+      - 'agent/**'
   pull_request:
 
 jobs:
