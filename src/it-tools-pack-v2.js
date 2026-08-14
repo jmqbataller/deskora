@@ -1,4 +1,4 @@
-import { Network, Printer, Code2, KeyRound, QrCode, Binary, ListChecks, FileStack, Archive, Calculator } from 'lucide-react'
+import { Network, Printer, Code2, KeyRound, QrCode, Binary, ListChecks, FileStack, Archive, Calculator, ShieldCheck } from 'lucide-react'
 
 export const itToolsV2 = [
   { id:'ip-range-planner', name:'IP Range Planner', desc:'Plan IPv4 networks, gateways, reserved blocks and DHCP ranges.', category:'it', icon:Network, badge:'IT' },
