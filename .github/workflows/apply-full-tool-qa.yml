@@ -25,6 +25,10 @@ jobs:
         run: sed -i '63c# QR payload escaping is handled by the dedicated Wi-Fi QR tools.' scripts/apply-qa-fixes.py
       - name: Apply QA fixes
         run: python scripts/apply-qa-fixes.py
+      - name: Keep workflow files out of runner commit
+        run: |
+          git checkout -- .github/workflows/ci.yml
+          git checkout -- .github/workflows/apply-full-tool-qa.yml
       - name: Commit QA fixes
         run: |
           git config user.name "John Mark"
