@@ -7,10 +7,11 @@ import {
 } from 'lucide-react'
 
 export const categories = [
-  { id: 'pdf', label: 'PDF', icon: FileText },
+  { id: 'pdf', label: 'PDF & Documents', icon: FileText },
   { id: 'image', label: 'Image', icon: Image },
   { id: 'video', label: 'Video', icon: Film },
-  { id: 'office', label: 'Office', icon: FileSpreadsheet },
+  { id: 'audio', label: 'Audio', icon: FileAudio },
+  { id: 'office', label: 'Office & Data', icon: FileSpreadsheet },
   { id: 'file', label: 'File', icon: Archive },
   { id: 'it', label: 'IT & Security', icon: Network },
   { id: 'developer', label: 'Developer', icon: Code2 },
@@ -19,7 +20,15 @@ export const categories = [
 
 export const tools = [
   { id:'pdf-to-image', name:'PDF to Images', desc:'Export PDF pages as PNG, JPG or WebP.', category:'pdf', icon:FileImage, badge:'Popular' },
-  { id:'edit-pdf', name:'Edit PDF', desc:'Add text, signatures and images visually, then export a new PDF.', category:'pdf', icon:FilePenLine, badge:'New' },
+  { id:'edit-pdf', name:'Edit PDF', desc:'Add positioned text, signatures and images visually.', category:'pdf', icon:FilePenLine, badge:'Popular' },
+  { id:'pdf-form-filler', name:'PDF Form Filler', desc:'Fill, annotate and sign office PDFs using the visual editor.', category:'pdf', icon:FilePenLine },
+  { id:'pdf-organizer', name:'PDF Page Organizer', desc:'Reorder, rotate, duplicate and delete individual pages.', category:'pdf', icon:FileStack, badge:'New' },
+  { id:'pdf-compressor', name:'PDF Compressor', desc:'Reduce PDF size with browser-side raster compression.', category:'pdf', icon:Gauge, badge:'New' },
+  { id:'pdf-redactor', name:'Permanent PDF Redaction', desc:'Black out sensitive regions and flatten pages to remove underlying content.', category:'pdf', icon:FileText, badge:'New' },
+  { id:'pdf-to-word', name:'PDF to Editable Text', desc:'Extract PDF text and download a Word-compatible document.', category:'pdf', icon:Type },
+  { id:'pdf-metadata', name:'Remove PDF Metadata', desc:'Clear common author, subject, keyword and producer fields.', category:'pdf', icon:FileText },
+  { id:'pdf-password', name:'PDF Password Security', desc:'PDF encryption status and safe browser-only security guidance.', category:'pdf', icon:KeyRound },
+  { id:'searchable-pdf', name:'Scan to Searchable PDF', desc:'OCR document photos and embed a searchable text layer.', category:'pdf', icon:FileText, badge:'OCR' },
   { id:'images-to-pdf', name:'Images to PDF', desc:'Combine browser-supported images into one PDF.', category:'pdf', icon:Images },
   { id:'merge-pdf', name:'Merge PDF', desc:'Combine multiple PDF files in your chosen order.', category:'pdf', icon:Merge },
   { id:'split-pdf', name:'Split PDF', desc:'Extract page ranges into a new PDF.', category:'pdf', icon:Scissors },
@@ -29,23 +38,48 @@ export const tools = [
   { id:'compress-image', name:'Compress Image', desc:'Reduce image size with quality control.', category:'image', icon:Gauge },
   { id:'resize-image', name:'Resize Image', desc:'Resize to exact pixel dimensions.', category:'image', icon:Crop },
   { id:'batch-images', name:'Batch Image ZIP', desc:'Convert or compress multiple images and download a ZIP.', category:'image', icon:FileStack },
+  { id:'image-metadata', name:'Image Metadata Cleaner', desc:'Re-encode photos to strip common EXIF and GPS metadata.', category:'image', icon:Image },
+  { id:'signature-maker', name:'Signature Maker', desc:'Draw a signature and export a transparent PNG.', category:'image', icon:FilePenLine, badge:'New' },
+  { id:'watermark-center', name:'Watermark Center', desc:'Add watermarks to images, PDFs and videos.', category:'image', icon:Sparkles, badge:'New' },
 
   { id:'video-compressor', name:'Video Compressor', desc:'Compress videos in your browser with FFmpeg.', category:'video', icon:Film, badge:'FFmpeg' },
   { id:'video-speed', name:'Video Speed', desc:'Create fast-motion or slow-motion video.', category:'video', icon:Gauge, badge:'FFmpeg' },
   { id:'video-trim', name:'Trim Video', desc:'Cut a video by start and end time.', category:'video', icon:Scissors, badge:'FFmpeg' },
   { id:'video-audio', name:'Video to MP3', desc:'Extract audio from a video file.', category:'video', icon:FileAudio, badge:'FFmpeg' },
+  { id:'video-social-resize', name:'Social Video Resize', desc:'Resize to Reels, TikTok, Story, Instagram and YouTube ratios.', category:'video', icon:Crop, badge:'New' },
+  { id:'video-frame', name:'Video Frame Extractor', desc:'Capture a full-resolution PNG frame at any timestamp.', category:'video', icon:FileImage },
+  { id:'gif-maker', name:'Video to GIF', desc:'Turn a selected video segment into an optimized GIF.', category:'video', icon:Film },
 
-  { id:'camera-scanner', name:'Camera Scanner', desc:'Capture paper documents, clean them up and export a scan-ready PDF.', category:'office', icon:Camera, badge:'New' },
+  { id:'audio-studio', name:'Audio Studio', desc:'Convert, trim, normalize, speed up or change audio volume.', category:'audio', icon:FileAudio, badge:'New' },
+
+  { id:'camera-scanner', name:'Camera Scanner', desc:'Capture multiple paper pages, clean them up and export a scan-ready PDF.', category:'office', icon:Camera, badge:'Popular' },
+  { id:'ocr-text', name:'OCR / Image to Text', desc:'Extract editable text from images and scanned PDFs.', category:'office', icon:Type, badge:'OCR' },
+  { id:'receipt-scanner', name:'Receipt Scanner', desc:'OCR receipts and surface likely amount/total lines.', category:'office', icon:FileText, badge:'OCR' },
+  { id:'business-card-scanner', name:'Business Card Scanner', desc:'Extract text, email, phone and website from a card photo.', category:'office', icon:FileText, badge:'OCR' },
   { id:'csv-cleaner', name:'CSV Cleaner', desc:'Remove blank and duplicate rows from CSV or Excel data.', category:'office', icon:Table2 },
+  { id:'spreadsheet-duplicates', name:'Spreadsheet Duplicate Finder', desc:'Find duplicate rows or duplicate values in one column.', category:'office', icon:ListChecks },
+  { id:'spreadsheet-compare', name:'Spreadsheet Compare', desc:'Compare two workbooks cell by cell and export a diff.', category:'office', icon:Table2 },
+  { id:'excel-merge', name:'Excel / CSV Merge', desc:'Combine multiple sheets or CSV files into one workbook.', category:'office', icon:Merge },
+  { id:'excel-split', name:'Excel Splitter', desc:'Split one workbook into files by a selected column.', category:'office', icon:Scissors },
   { id:'text-compare', name:'Text Compare', desc:'Highlight additions and removals between two texts.', category:'office', icon:Type },
   { id:'email-cleaner', name:'Email List Cleaner', desc:'Normalize, validate and deduplicate email lists.', category:'office', icon:ListChecks },
   { id:'qr-generator', name:'QR Generator', desc:'Generate QR codes for URLs, text or Wi-Fi details.', category:'office', icon:QrCode },
   { id:'barcode-generator', name:'Barcode Generator', desc:'Generate printable Code 128 barcodes.', category:'office', icon:Barcode },
+  { id:'code-scanner', name:'QR & Barcode Scanner', desc:'Read QR and common barcode formats from a photo or phone camera.', category:'office', icon:Barcode },
+  { id:'meeting-transcriber', name:'Live Meeting Transcriber', desc:'Create a live microphone transcript where browser speech recognition is available.', category:'office', icon:Type },
+  { id:'number-to-words', name:'Number to Words', desc:'Convert amounts into Philippine-peso wording for office documents.', category:'office', icon:Calculator },
+  { id:'vat-calculator', name:'VAT Calculator', desc:'Calculate net, VAT and total for inclusive or exclusive pricing.', category:'office', icon:Calculator },
+  { id:'workdays-calculator', name:'Workdays Calculator', desc:'Count weekdays, weekends and optional holiday dates.', category:'office', icon:Calculator },
+  { id:'workflow-builder', name:'Tool Chain Builder', desc:'Save guided multi-tool workflows such as Scan → Edit → Compress.', category:'office', icon:Merge, badge:'New' },
+  { id:'workspace', name:'My Deskora Workspace', desc:'Open favorites and recent tools saved only on this device.', category:'office', icon:FileStack },
 
   { id:'zip-creator', name:'Create ZIP', desc:'Package multiple files into a ZIP archive.', category:'file', icon:Archive },
   { id:'zip-extractor', name:'Extract ZIP', desc:'Open a ZIP and download individual files.', category:'file', icon:PackageOpen },
   { id:'file-hash', name:'File Hash', desc:'Generate SHA-256 fingerprints locally.', category:'file', icon:Hash },
   { id:'file-compare', name:'Compare Files', desc:'Check whether two files are byte-for-byte identical.', category:'file', icon:Binary },
+  { id:'smart-rename', name:'Smart Batch Rename', desc:'Preview sequential filenames and download renamed copies in a ZIP.', category:'file', icon:FileStack },
+  { id:'bulk-organizer', name:'Bulk File Organizer', desc:'Group mixed files by type and package them in organized folders.', category:'file', icon:Archive },
+  { id:'duplicate-files', name:'Duplicate File Finder', desc:'Use SHA-256 to find exact duplicate files locally.', category:'file', icon:Hash },
 
   { id:'subnet-calculator', name:'IP / Subnet Calculator', desc:'Calculate network, broadcast and usable IPv4 range.', category:'it', icon:Network, badge:'Office IT' },
   { id:'password-generator', name:'Password Generator', desc:'Generate secure passwords without sending data anywhere.', category:'it', icon:KeyRound },
@@ -54,7 +88,9 @@ export const tools = [
   { id:'base64-tools', name:'Base64 Encoder', desc:'Encode and decode text using Base64.', category:'developer', icon:Binary },
 
   { id:'dpi-calculator', name:'DPI Calculator', desc:'Convert print size and DPI into exact pixel dimensions.', category:'printing', icon:Calculator },
-  { id:'paper-size', name:'Paper Size Guide', desc:'Instant dimensions for A-series, Letter and Legal paper.', category:'printing', icon:Printer },
+  { id:'paper-size', name:'Paper Size Guide', desc:'Dimensions for A-series, Letter, Legal and Philippine Long Bond.', category:'printing', icon:Printer },
+  { id:'id-picture', name:'ID Picture Sheet', desc:'Create 1×1, 2×2 or passport photo sheets on A4 at 300 DPI.', category:'printing', icon:Images, badge:'New' },
+  { id:'date-stamp', name:'Date Stamp Generator', desc:'Create RECEIVED, PAID or custom office stamps as transparent PNG.', category:'printing', icon:Printer },
 ]
 
 export const toolMap = Object.fromEntries(tools.map(t => [t.id, t]))
