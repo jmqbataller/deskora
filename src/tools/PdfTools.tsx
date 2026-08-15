@@ -36,25 +36,97 @@ export function PdfToImage(){
   </div>
 }
 
+const MAX_IMAGE_DIMENSION = 6000
+const MAX_PDF_PAGE_POINTS = 14000
+const PX_TO_PT = 72 / 96
+
+function loadBrowserImage(file){
+  return new Promise((resolve,reject)=>{
+    const url=URL.createObjectURL(file)
+    const img=new Image()
+    img.onload=()=>{
+      URL.revokeObjectURL(url)
+      resolve(img)
+    }
+    img.onerror=()=>{
+      URL.revokeObjectURL(url)
+      reject(new Error(`Unsupported or unreadable image: ${file.name}. Try PNG, JPG, JPEG, or WebP.`))
+    }
+    img.src=url
+  })
+}
+
+function canvasToJpeg(canvas){
+  return new Promise((resolve,reject)=>{
+    canvas.toBlob(blob=>blob ? resolve(blob) : reject(new Error('Could not encode the image for PDF output.')),'image/jpeg',0.94)
+  })
+}
+
+async function normalizeImageForPdf(file){
+  const img=await loadBrowserImage(file)
+  const naturalWidth=img.naturalWidth || img.width
+  const naturalHeight=img.naturalHeight || img.height
+  if(!naturalWidth || !naturalHeight) throw new Error(`Could not read image dimensions: ${file.name}`)
+
+  const scale=Math.min(1,MAX_IMAGE_DIMENSION/naturalWidth,MAX_IMAGE_DIMENSION/naturalHeight)
+  const width=Math.max(1,Math.round(naturalWidth*scale))
+  const height=Math.max(1,Math.round(naturalHeight*scale))
+  const canvas=document.createElement('canvas')
+  canvas.width=width
+  canvas.height=height
+  const ctx=canvas.getContext('2d')
+  if(!ctx) throw new Error('Your browser could not prepare the image for PDF conversion.')
+
+  ctx.fillStyle='#ffffff'
+  ctx.fillRect(0,0,width,height)
+  ctx.drawImage(img,0,0,width,height)
+  const jpeg=await canvasToJpeg(canvas)
+  return {bytes:await jpeg.arrayBuffer(),width,height}
+}
+
 export function ImagesToPdf(){
   const [files,setFiles]=useState([]); const [busy,setBusy]=useState(false); const [msg,setMsg]=useState(''); const [page,setPage]=useState('fit')
   async function run(){
-    if(!files.length)return; setBusy(true); setMsg('Building PDF…')
+    if(!files.length)return
+    setBusy(true)
+    setMsg('Building PDF…')
     try{
       const pdf=await PDFDocument.create()
-      for(const f of files){
-        const bytes=await f.arrayBuffer(); let img
-        if(f.type.includes('png')) img=await pdf.embedPng(bytes); else if(f.type.includes('jpeg')||f.type.includes('jpg')) img=await pdf.embedJpg(bytes); else {
-          const bmp=await createImageBitmap(f); const c=document.createElement('canvas'); c.width=bmp.width;c.height=bmp.height;c.getContext('2d').drawImage(bmp,0,0); const jpg=await new Promise(r=>c.toBlob(r,'image/jpeg',0.94)); img=await pdf.embedJpg(await jpg.arrayBuffer())
+      for(let index=0;index<files.length;index++){
+        const f=files[index]
+        setMsg(`Processing image ${index+1} of ${files.length}: ${f.name}`)
+        const normalized=await normalizeImageForPdf(f)
+        const img=await pdf.embedJpg(normalized.bytes)
+
+        if(page==='a4'){
+          const pageW=595.28,pageH=841.89,margin=20
+          const maxW=pageW-(margin*2),maxH=pageH-(margin*2)
+          const ratio=Math.min(maxW/img.width,maxH/img.height)
+          const w=img.width*ratio,h=img.height*ratio
+          const p=pdf.addPage([pageW,pageH])
+          p.drawImage(img,{x:(pageW-w)/2,y:(pageH-h)/2,width:w,height:h})
+        }else{
+          let w=normalized.width*PX_TO_PT
+          let h=normalized.height*PX_TO_PT
+          const ratio=Math.min(1,MAX_PDF_PAGE_POINTS/w,MAX_PDF_PAGE_POINTS/h)
+          w=Math.max(1,w*ratio)
+          h=Math.max(1,h*ratio)
+          const p=pdf.addPage([w,h])
+          p.drawImage(img,{x:0,y:0,width:w,height:h})
         }
-        let w=img.width,h=img.height
-        if(page==='a4'){const maxW=555,maxH=802; const ratio=Math.min(maxW/w,maxH/h,1); w*=ratio;h*=ratio; const p=pdf.addPage([595,842]);p.drawImage(img,{x:(595-w)/2,y:(842-h)/2,width:w,height:h})}
-        else {const p=pdf.addPage([w,h]); p.drawImage(img,{x:0,y:0,width:w,height:h})}
       }
-      downloadBlob(new Blob([await pdf.save()],{type:'application/pdf'}),'deskora-images.pdf'); setMsg(`Done — ${files.length} image${files.length===1?'':'s'} combined.`)
-    }catch(e){setMsg(e.message)}finally{setBusy(false)}
+
+      setMsg('Finalizing PDF…')
+      const pdfBytes=await pdf.save()
+      downloadBlob(new Blob([pdfBytes as BlobPart],{type:'application/pdf'}),'deskora-images.pdf')
+      setMsg(`Done — ${files.length} image${files.length===1?'':'s'} combined into a PDF.`)
+    }catch(e){
+      setMsg(`Could not create PDF: ${e instanceof Error ? e.message : String(e)}`)
+    }finally{
+      setBusy(false)
+    }
   }
-  return <div className="stack"><FileDrop accept="image/*" multiple onFiles={setFiles}/><Selected files={files}/><label>Page sizing<select value={page} onChange={e=>setPage(e.target.value)}><option value="fit">Match each image</option><option value="a4">Center on A4</option></select></label><button className="primary" disabled={!files.length||busy} onClick={run}>{busy?'Creating…':'Create PDF'}</button><Status>{msg}</Status></div>
+  return <div className="stack"><FileDrop accept="image/png,image/jpeg,image/webp,image/gif,image/bmp" multiple onFiles={setFiles}/><Selected files={files}/><label>Page sizing<select value={page} onChange={e=>setPage(e.target.value)}><option value="fit">Match each image</option><option value="a4">Center on A4</option></select></label><button className="primary" disabled={!files.length||busy} onClick={run}>{busy?'Creating…':'Create PDF'}</button><Status>{msg}</Status></div>
 }
 
 export function MergePdf(){
